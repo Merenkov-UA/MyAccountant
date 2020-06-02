@@ -1,0 +1,24 @@
+#myContainer, span {
+		display: inline-block ;
+		width  : 90px ;
+}
+
+
+
+#myContainer{
+  width: 500px;
+}
+
+#myInput{
+  max-width:400px;
+}
+
+#authForm, #authContainer{
+  width:350px;
+  margin-top:15%;
+}
+
+#mainBtn , a{
+    color: white;
+   text-decoration:none;
+}
