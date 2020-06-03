@@ -46,10 +46,10 @@ class Record{
             return false;
 	}
 
-	function update_record( $description, $operation, $amount, $Id) {
+	function update_record( $description, $amount, $Id) {
 		if( empty( $this->DB ) ) return false ;
 		
-			$sql = "UPDATE records SET description ='$description', operation = '$operation', amount ='$amount', dt_edit = CURRENT_TIMESTAMP
+			$sql = "UPDATE records SET description ='$description',  amount ='$amount', dt_edit = CURRENT_TIMESTAMP
 			WHERE id =".$Id;
 		$query = $this->DB->prepare($sql);
 

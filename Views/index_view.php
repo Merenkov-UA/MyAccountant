@@ -138,7 +138,7 @@
       <div class="modal fade" tabindex="-1" role="dialog" id="editRecordModal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header editHeader">
               <h5 class="modal-title"><span class="fa fa-pencil-square" aria-hidden="true"></span> Редактирование записи</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -147,45 +147,36 @@
 
               <form class="form-horizontal" action="Controllers/update.php" method="POST" id="updateRecordForm">
 
-            <div class="modal-body">
-                <div class="form-group">
-                      <label for="description" class="col-sm-2 control-label" >Описание</label>
-                      <div class="col-sm-12">
-                        <input type="text" name="editDescription" id="editDescription" class="form-control" placeholder="Описание"/>
-                      </div>
-                    </div>
+                <div class="modal-body editBody">
 
                     <div class="form-group">
-                      <label for="editOperation" class="col-sm-2 control-label" >Операция</label>
-                      <div class="col-sm-12">
-                        <select class="form-control" name="editOperation"  id="editOperation">
-                          <option value="">Выбрать</option>
-                          <option value="profit">Доходы</option>
-                          <option value="spending">Затраты</option>
-                        </select>
+                        <label for="description" class="col-sm-2 control-label" >Описание</label>
+                        <div class="col-sm-12">
+                          <input type="text" name="editDescription" id="editDescription" class="form-control" placeholder="Описание"/>
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="form-group">
-                      <label for="editAmount" class="col-sm-2 control-label" >Сумма</label>
-                      <div class="col-sm-12">
-                         <input  type="number" step="any" min="0.01" name="editAmount" id="editAmount" value="1" class="form-control" placeholder="Сумма"/>
-                      </div>
-                    </div>
+                       
 
-                    <div class="form-group">
-                        <label for="balance" class="col-sm-2 control-label" >Баланс</label>
-                      <div class="col-sm-12">
-                        <input  type="number" readonly="readonly" id="editBalance" name="editBalance" step="any" value="<?=$user['balance']?>" class="form-control" placeholder="Баланс"/>
+                      <div class="form-group">
+                        <label for="editAmount" class="col-sm-2 control-label" >Сумма</label>
+                        <div class="col-sm-12">
+                           <input  type="number" step="any" min="0.01" name="editAmount" id="editAmount" value="1" class="form-control" placeholder="Сумма"/>
+                        </div>
                       </div>
-                      
-                    </div>
+
+                      <div class="form-group">
+                          <label for="balance" class="col-sm-2 control-label" >Баланс</label>
+                        <div class="col-sm-12">
+                          <input  type="number" readonly="readonly" id="editBalance" name="editBalance" step="any" value="<?=$user['balance']?>" class="form-control" placeholder="Баланс"/>
+                        </div>
+                      </div>
 
                 </div>
-            <div class="modal-footer editFooter">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-              <button type="submit" class="btn btn-primary" id="editButton">Подтвердить</button>
-            </div>
+                <div class="modal-footer editFooter">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                  <button type="submit" class="btn btn-primary" id="editButton">Подтвердить</button>
+                </div>
           </form>
           </div>
         </div>

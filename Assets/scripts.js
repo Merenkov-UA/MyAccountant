@@ -43,6 +43,7 @@ $("#addModalButton").on('click', function(){
 				$("#operation").closest('.form-group').removeClass('has-error');
 			}
 	if(description && operation ){
+
 		var posting = $.post(
 				url,
 			{
@@ -60,6 +61,7 @@ $("#addModalButton").on('click', function(){
  			$("#addModal").modal('hide');
 
  			table.ajax.reload(null,false);
+ 			getBalance();
  		
 		});
 	});
@@ -75,6 +77,8 @@ function testFunc(data){
 function deleteRecord(id = null){
 	if(id)
 	{
+		getBalance();
+										
 		$("#removeButton").on('click', function() {
 			$.ajax({
 				url: 'Controllers/delete_record.php',
@@ -90,6 +94,8 @@ function deleteRecord(id = null){
 
 							
 						table.ajax.reload(null,false);
+						getBalance();
+
 
 						$("#deleteRecordModal").modal('hide');
 
@@ -98,6 +104,8 @@ function deleteRecord(id = null){
 							'<button type="button" class="close" data-dismiss="alert" aria-label="Close">Закрыть</button>'
 							+response.messages+
 							'</div>');
+
+						$("#deleteRecordModal").modal('hide');
 					}
 				}
 			});
@@ -113,18 +121,27 @@ function getBalance(){
 		dataType:'json',
 		success: function(response){
 			 $("#balance").val(response.balance) ;
+			 $("#editBalance").val(response.balance) ;
 		}
 	});
 }
 
 function editRecord(id = null){
+	getBalance();
 	if(id){
+		
+										
 
 		$(".form-group").removeClass('has-error');
 		$(".text-danger").remove();
 		$('.editMessages').html('');
 
 		$("#editId").remove();
+		$("#oldAmount").remove();
+		$("#authorId").remove();
+		$("#editOperationOld").remove();
+
+		
 
 		$.ajax({
 			url: 'Controllers/getSelectedRecords.php',
@@ -134,9 +151,19 @@ function editRecord(id = null){
 			success: function(response){
 
 					$("#editDescription").val(response.description);
-					$("#editOperation").val(response.operation);
 					$("#editAmount").val(response.amount);
 					$(".editFooter").append('<input type="hidden" name="editId" id="editId" value="'+response.id+'" />');
+					$(".editFooter").append('<input type="hidden" name="oldAmount" id="oldAmount" value="'+response.amount+'" />');
+					$(".editFooter").append('<input type="hidden" name="authorId" id="authorId" value="'+response.id_author+'" />');
+					$(".editBody").append(
+						response.operation == "profit" ? 
+						('<input type="text" disabled="true" class="form-control col-sm-12 text-center" name="editOperationOld" id="editOperationOld" value="Доходы" />') :
+						('<input type="text" disabled="true" class="form-control col-sm-12 text-center" name="editOperationOld" id="editOperationOld" value="Затраты" />')
+
+						);
+
+
+					getBalance();
 
 					$("#updateRecordForm").unbind('submit').bind('submit', function(){
 						
@@ -144,9 +171,7 @@ function editRecord(id = null){
 
 						var formEdit = $(this);
 						var editId = response.id;
-
 						var editDescription = $("#editDescription").val();
-						var editOperation = $("#editOperation").val();
 					    var editAmount = $("#editAmount").val();
 						var url = formEdit.attr('action');
 
@@ -157,13 +182,8 @@ function editRecord(id = null){
 									$("#editDescription").closest('.form-group').removeClass('has-error');
 								}
 
-						if(editOperation == ""){
-									$("#editOperation").closest('.form-group').addClass('has-error');
-									$("#editOperation").after('<p class="text-danger">Операция не может быть пустой</p>');
-								}else {
-									$("#editOperation").closest('.form-group').removeClass('has-error');
-								}
-						if(editDescription && editOperation ){
+						
+						if(editDescription ){
 
 							$.ajax({
 								url: 'Controllers/update.php',
@@ -179,8 +199,11 @@ function editRecord(id = null){
 										'</div>');
 
 										table.ajax.reload(null,false);
+										getBalance();
+										
 										
 										$("#editRecordModal").modal('hide');
+										
 
 									}else{
 
