@@ -14,7 +14,7 @@ $data = array('success' => false, 'messages' => array());
 		$records = new Record( ) ;
 		
 		
-if($_POST['editOperationOld'] === "spending")
+if($_POST['editOperationOldValue'] === "spending")
 	{
 		if($_POST['editAmount'] > $_POST['oldAmount'])
 		{
@@ -26,7 +26,7 @@ if($_POST['editOperationOld'] === "spending")
 			$users->update_user_balance(($users->balance + ($_POST['oldAmount'] - $_POST['editAmount'])  ),  $_POST['authorId']);
 		
 	}
-	else{
+	else if($_POST['editOperationOldValue'] === "profit"){
 		if($_POST['editAmount'] > $_POST['oldAmount'])
 		{
 			$users->update_user_balance(($users->balance + ($_POST['editAmount'] - $_POST['oldAmount'])),  $_POST['authorId']);

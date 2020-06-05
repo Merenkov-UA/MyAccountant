@@ -155,6 +155,9 @@ function editRecord(id = null){
 					$(".editFooter").append('<input type="hidden" name="editId" id="editId" value="'+response.id+'" />');
 					$(".editFooter").append('<input type="hidden" name="oldAmount" id="oldAmount" value="'+response.amount+'" />');
 					$(".editFooter").append('<input type="hidden" name="authorId" id="authorId" value="'+response.id_author+'" />');
+					
+					$(".editFooter").append('<input type="hidden" name="editOperationOldValue" id="editOperationOldValue" value="'+response.operation+'" />');
+
 					$(".editBody").append(
 						response.operation == "profit" ? 
 						('<input type="text" disabled="true" class="form-control col-sm-12 text-center" name="editOperationOld" id="editOperationOld" value="Доходы" />') :
@@ -171,6 +174,8 @@ function editRecord(id = null){
 
 						var formEdit = $(this);
 						var editId = response.id;
+						$("#editOperationOldValue").val(response.operation);
+						$("#authorId").val(response.id_author);
 						var editDescription = $("#editDescription").val();
 					    var editAmount = $("#editAmount").val();
 						var url = formEdit.attr('action');
